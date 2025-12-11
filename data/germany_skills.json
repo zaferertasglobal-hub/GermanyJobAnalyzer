@@ -1,0 +1,7 @@
+{
+  "top_skills": {
+    "languages": ["Python", "Java", "JavaScript", "TypeScript", "C#", "SQL", "Go", "Kotlin", "Rust", "PHP"],
+    "frameworks": ["React", "Angular", "Vue.js", "Spring Boot", "Django", "Flask", "Node.js", ".NET", "FastAPI"],
+    "tech": ["AWS", "Azure", "Docker", "Kubernetes", "Git", "Jenkins", "Terraform", "PostgreSQL", "MongoDB"]
+  }
+}

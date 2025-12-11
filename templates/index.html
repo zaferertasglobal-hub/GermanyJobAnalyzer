@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Germany Job Analyzer 2025</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        textarea {
+            width: 100%;
+            height: 220px;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 17px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            resize: none;
+            margin-bottom: 25px;
+        }
+        #analyzeBtn {
+            background: #ff6b6b;
+            color: white;
+            padding: 18px 50px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s;
+        }
+        #analyzeBtn:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+        }
+        #results {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            font-size: 1.4em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Almanya İş Piyasası Beceri Analizörü 2025</h1>
+        <p>CV'nizi aşağıya yapıştırın ve Almanya'daki en çok aranan becerilerle ne kadar uyumlu olduğunuzu görün!</p>
+
+        <textarea id="cvInput" placeholder="Örnek: I am a software engineer with experience in Python, Java, React, AWS..."></textarea>
+
+        <button id="analyzeBtn">Analiz Et</button>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function analyzeCV() {
+            const cvText = document.getElementById('cvInput').value.trim();
+            if (!cvText) {
+                alert("Lütfen CV'nizi yapıştırın!");
+                return;
+            }
+
+            document.getElementById('results').innerHTML = "<p style='font-size:1.5em;'>Analiz ediliyor...</p>";
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'cv_text=' + encodeURIComponent(cvText)
+                });
+
+                const data = await response.json();
+
+                if (data.error) throw new Error(data.error);
+
+                const mesaj = data.match_score >= 80 ? "TEBRİKLER! Almanya seni bekliyor!"
+                            : data.match_score >= 60 ? "Çok iyisin! Küçük dokunuşlarla mükemmel olur"
+                            : "Biraz daha çalış, çok yakında hazır olursun!";
+
+                document.getElementById('results').innerHTML = `
+                    <h2>Almanya Uyum Skorun: <span style="color:#00ff88; font-size:60px;">${data.match_score}%</span></h2>
+                    <p><strong>Bulunan beceriler:</strong> ${data.user_skills.join(', ')}</p>
+                    <p><strong>Almanya'da en çok arananlar:</strong> ${data.top_skills.join(', ')}</p>
+                    <h3 style="color:#00ff88; font-size:28px;">${mesaj}</h3>
+                `;
+            } catch (e) {
+                document.getElementById('results').innerHTML = `<p style="color:#ff6b6b;">Hata: ${e.message}</p>`;
+            }
+        }
+
+        document.getElementById('analyzeBtn').addEventListener('click', analyzeCV);
+    </script>
+</body>
+</html>
