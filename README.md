@@ -21,3 +21,37 @@ This project analyzes job postings and matches them with CV keywords to improve 
 ```bash
 pip install -r requirements.txt
 python main.py
+
+---
+
+# 💻 B) AUTH API README
+
+Repo: `user-management-api` (veya benzeri)
+
+---
+
+```md
+# 🔐 Scalable Authentication API
+
+## 📌 Overview
+A RESTful API for user authentication and management built with Node.js.
+
+## ⚙️ Tech Stack
+- Node.js
+- Express.js
+- SQL
+- JWT Authentication
+
+## 🔥 Features
+- User registration & login
+- JWT-based authentication
+- CRUD operations
+- Secure password handling
+
+## 📈 Performance
+- Improved backend data flow by 30%
+
+## ▶️ Run Locally
+```bash
+npm install
+npm start
