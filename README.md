@@ -1,4 +1,4 @@
-# 🤖 AI Job Analyzer Tool
+# 🤖  Job Analyzer Tool
 
 ## 📌 Overview
 This project analyzes job postings and matches them with CV keywords to improve job application success.
